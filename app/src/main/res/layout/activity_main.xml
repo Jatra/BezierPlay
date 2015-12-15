@@ -46,7 +46,13 @@
             android:paddingLeft="14dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="true" />
+            />
+
+        <CheckBox
+            android:id="@+id/showCurve"
+            android:paddingLeft="14dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <uk.co.jatra.bezierplay.DisplayView

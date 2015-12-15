@@ -10,7 +10,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 
-public class MainActivity extends AppCompatActivity implements DisplayView.ProgressListener, CompoundButton.OnCheckedChangeListener{
+public class MainActivity extends AppCompatActivity implements DisplayView.ProgressListener{
 
     private TextView percentage;
     @Bind(R.id.showLevel1Lines) CheckBox showLevel1Lines;
@@ -19,7 +19,8 @@ public class MainActivity extends AppCompatActivity implements DisplayView.Progr
     @Bind(R.id.showLevel1Points) CheckBox showLevel1Points;
     @Bind(R.id.showLevel2Points) CheckBox showLevel2Points;
     @Bind(R.id.showLevel3Points) CheckBox showLevel3Points;
-    @Bind(R.id.display_view) DisplayView displayView;
+    @Bind(R.id.display_view)
+    DisplayView displayView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,48 +28,6 @@ public class MainActivity extends AppCompatActivity implements DisplayView.Progr
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-//        ((CheckBox)findViewById(R.id.showLevel1Points))
-//                .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//                    @Override
-//                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                        displayView.setShowingMovingControlPoints1(isChecked);
-//                    }
-//                });
-//        ((CheckBox)findViewById(R.id.showLevel2Points))
-//                .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//                    @Override
-//                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                        displayView.setShowingMovingControlPoints2(isChecked);
-//                    }
-//                });
-//        ((CheckBox)findViewById(R.id.showLevel3Points))
-//                .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//                    @Override
-//                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                        displayView.setShowingMovingControlPoints3(isChecked);
-//                    }
-//                });
-//        ((CheckBox)findViewById(R.id.showLevel1Lines))
-//                .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//                    @Override
-//                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                        displayView.setShowControlLine1(isChecked);
-//                    }
-//                });
-//        ((CheckBox)findViewById(R.id.showLevel2Lines))
-//                .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//                    @Override
-//                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                        displayView.setShowControlLine2(isChecked);
-//                    }
-//                });
-//        ((CheckBox)findViewById(R.id.showLevel3Lines))
-//                .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//                    @Override
-//                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                        displayView.setShowControlLine3(isChecked);
-//                    }
-//                });
         percentage = (TextView)findViewById(R.id.percentage);
 
         displayView.setProgressListener(this);
@@ -83,5 +42,22 @@ public class MainActivity extends AppCompatActivity implements DisplayView.Progr
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         displayView.showMovingControlPoints(showLevel1Points.isChecked(), showLevel2Points.isChecked(), showLevel3Points.isChecked());
         displayView.showMovingControlLines(showLevel1Lines.isChecked(), showLevel2Lines.isChecked(), showLevel3Lines.isChecked());
+    }
+
+    @OnCheckedChanged(R.id.showCurve)
+    public void showCurve(CompoundButton buttonView, boolean isChecked) {
+        displayView.showCurve(isChecked);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        displayView.resume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        displayView.pause();
     }
 }
